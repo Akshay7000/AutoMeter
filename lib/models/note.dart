@@ -6,11 +6,10 @@ class Note {
 	String _description;
 	String _date;
 	int _priority;
-	String _phone;
 
-	Note(this._title, this._date, this._priority, this._phone, [this._description]);
+	Note(this._title, this._date, this._priority, [this._description]);
 
-	Note.withId(this._id, this._title, this._date, this._priority, this._phone, [this._description]);
+	Note.withId(this._id, this._title, this._date, this._priority, [this._description]);
 
 	int get id => _id;
 
@@ -21,8 +20,6 @@ class Note {
 	int get priority => _priority;
 
 	String get date => _date;
-
-	String get phone => _phone;
 
 	set title(String newTitle) {
 		if (newTitle.length <= 255) {
@@ -36,12 +33,14 @@ class Note {
 		}
 	}
 
-	set date(String newDate) {
-		this._date = newDate;
+	set priority(int newPriority) {
+		if (newPriority >= 1 && newPriority <= 2) {
+			this._priority = newPriority;
+		}
 	}
 
-	set phone(String newPhone) {
-		this._phone = newPhone;
+	set date(String newDate) {
+		this._date = newDate;
 	}
 
 	// Convert a Note object into a Map object
@@ -55,7 +54,7 @@ class Note {
 		map['description'] = _description;
 		map['priority'] = _priority;
 		map['date'] = _date;
-		map['phone'] = _phone;
+
 		return map;
 	}
 
@@ -64,8 +63,8 @@ class Note {
 		this._id = map['id'];
 		this._title = map['title'];
 		this._description = map['description'];
+		this._priority = map['priority'];
 		this._date = map['date'];
-		this._phone = map['phone'];
 	}
 }
 
