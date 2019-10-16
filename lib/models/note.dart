@@ -6,10 +6,11 @@ class Note {
 	String _description;
 	String _date;
 	int _priority;
+	String _email;
 
-	Note(this._title, this._date, this._priority, [this._description]);
+	Note(this._title, this._date, this._priority, this._email,[this._description]);
 
-	Note.withId(this._id, this._title, this._date, this._priority, [this._description]);
+	Note.withId(this._id, this._title, this._date, this._priority, this._email,[this._description]);
 
 	int get id => _id;
 
@@ -20,6 +21,8 @@ class Note {
 	int get priority => _priority;
 
 	String get date => _date;
+
+  String get email => _email;
 
 	set title(String newTitle) {
 		if (newTitle.length <= 255) {
@@ -32,7 +35,11 @@ class Note {
 			this._description = newDescription;
 		}
 	}
-
+	set email(String newEmail) {
+		if (newEmail.length <= 255) {
+			this._description = newEmail;
+		}
+	}
 	set priority(int newPriority) {
 		if (newPriority >= 1 && newPriority <= 2) {
 			this._priority = newPriority;
@@ -54,6 +61,7 @@ class Note {
 		map['description'] = _description;
 		map['priority'] = _priority;
 		map['date'] = _date;
+		map['email'] = _email;
 
 		return map;
 	}
@@ -65,6 +73,7 @@ class Note {
 		this._description = map['description'];
 		this._priority = map['priority'];
 		this._date = map['date'];
+		this._email = map['email'];
 	}
 }
 

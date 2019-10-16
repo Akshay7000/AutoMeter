@@ -1,4 +1,4 @@
-import 'dart:async';
+//import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:auto_meter/models/note.dart';
 import 'package:auto_meter/utils/database_helper.dart';
@@ -9,7 +9,7 @@ class NoteDetail extends StatefulWidget {
   final String appBarTitle;
   final Note note;
 
-  NoteDetail(this. note, this.appBarTitle);
+  NoteDetail(this.note, this.appBarTitle);
 
   @override
   State<StatefulWidget> createState() {
@@ -29,7 +29,7 @@ class NoteDetailState extends State<NoteDetail> {
 
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-
+  TextEditingController emailController = TextEditingController();
   NoteDetailState(this.note, this.appBarTitle);
 
   @override
@@ -39,9 +39,10 @@ class NoteDetailState extends State<NoteDetail> {
 
     titleController.text = note.title;
     descriptionController.text = note.description;
-
+    emailController.text = note.email;
     return WillPopScope(
 
+        // ignore: missing_return
         onWillPop: () {
           // Write some code to control things, when user press Back navigation button in device navigationBar
           moveToLastScreen();
@@ -64,30 +65,6 @@ class NoteDetailState extends State<NoteDetail> {
             child: ListView(
               children: <Widget>[
 
-                // First element
-//                ListTile(
-//                  title: DropdownButton(
-//                      items: _priorities.map((String dropDownStringItem) {
-//                        return DropdownMenuItem<String> (
-//                          value: dropDownStringItem,
-//                          child: Text(dropDownStringItem),
-//                        );
-//                      }).toList(),
-//
-//                      style: textStyle,
-//
-//                      value: getPriorityAsString(note.priority),
-//
-//                      onChanged: (valueSelectedByUser) {
-//                        setState(() {
-//                          debugPrint('User selected $valueSelectedByUser');
-//                          updatePriorityAsInt(valueSelectedByUser);
-//                        });
-//                      }
-//                  ),
-//                ),
-//
-                // Second Element
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                   child: TextField(
@@ -118,7 +95,7 @@ class NoteDetailState extends State<NoteDetail> {
                       updateDescription();
                     },
                     decoration: InputDecoration(
-                        labelText: 'Room No.',
+                        labelText: 'Phone Number',
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
@@ -126,19 +103,18 @@ class NoteDetailState extends State<NoteDetail> {
                     ),
                   ),
                 ),
-
 
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                   child: TextField(
-                    //controller: titleController,
+                    controller: emailController,
                     style: textStyle,
                     onChanged: (value) {
-                      debugPrint('Something changed in Title Text Field');
-                      updateTitle();
+                      debugPrint('Something changed in Description Text Field');
+                      updateDescription();
                     },
                     decoration: InputDecoration(
-                        labelText: 'phone',
+                        labelText: 'Email ID',
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
@@ -146,7 +122,7 @@ class NoteDetailState extends State<NoteDetail> {
                     ),
                   ),
                 ),
-                // Fourth Element
+
 
 
                 Padding(
@@ -239,6 +215,9 @@ class NoteDetailState extends State<NoteDetail> {
   // Update the description of Note object
   void updateDescription() {
     note.description = descriptionController.text;
+  }
+  void updateEmail() {
+    note.email = emailController.text;
   }
 
   // Save data to database

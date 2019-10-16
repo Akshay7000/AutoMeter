@@ -4,8 +4,6 @@ import 'package:auto_meter/models/note.dart';
 import 'package:auto_meter/utils/database_helper.dart';
 import 'package:auto_meter/screens/note_detail.dart';
 import 'package:sqflite/sqflite.dart';
-//import 'package:auto_meter/Detail.dart';
-
 import 'details.dart';
 
 class NoteList extends StatefulWidget {
@@ -42,7 +40,7 @@ class NoteListState extends State<NoteList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           debugPrint('FAB clicked');
-          navigateToDetail(Note('', '', 2), 'Add Room');
+          navigateToDetail(Note('','',2,''), 'Add Room');
         },
 
         tooltip: 'Add Room',
@@ -85,8 +83,8 @@ class NoteListState extends State<NoteList> {
             onTap: () {
               debugPrint("ListTile Tapped");
              // Navigator.of(context).pushNamed('/details');
-              // navigateToDetail(this.noteList[position],'Edit Room');
-              Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Room One")));
+//               navigateToDetail(this.noteList[position],'Edit Room');
+              Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Room One",this.noteList[position])));
             },
 
           ),

@@ -1,12 +1,12 @@
-import 'dart:js';
-import 'dart:async';
+//import 'dart:js';
+//import 'dart:async';
+import 'package:auto_meter/screens/note_list.dart';
 import 'package:auto_meter/utils/database_helper.dart';
 import 'package:auto_meter/models/note.dart';
-import 'package:auto_meter/screens/note_detail.dart';
+//import 'package:auto_meter/screens/note_detail.dart';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqlite_api.dart';
-import 'package:sqflite/sqflite.dart';
-
+//import 'package:sqflite/sqlite_api.dart';
+//import 'package:sqflite/sqflite.dart';
 // ignore: must_be_immutable
 class Page extends StatelessWidget {
   DatabaseHelper databaseHelper = DatabaseHelper();
@@ -14,35 +14,22 @@ class Page extends StatelessWidget {
   int count = 0;
 
   final String title;
-
-  Page(this.title);
+  Note noteList2;
+  Page(this.title,this.noteList2);
   get currentAccountPicture => null;
+
+  get position => null;
 
   @override
   Widget build(BuildContext context) {
 
-    if (noteList == null) {
-      noteList = List<Note>();
-      updateListView();
-    }
-
     return new Scaffold(
-
-
-
-
       appBar: new AppBar(title: new Text(title), backgroundColor: Colors.purple,),
       body: new ListView(
         children: <Widget>[
-
-          Container(
-
-          ),
-
-          new Column(
+                    new Column(
             children: <Widget>[
               Container(
-
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   overflow: Overflow.visible,
@@ -60,8 +47,7 @@ class Page extends StatelessWidget {
                         alignment: Alignment.bottomRight,
                         child: FloatingActionButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/note_detail');
-
+                            //NavigateToDetail(this.noteList[position],'Edit Room');
                           },
                           mini: true,
                           child: Icon(Icons.edit),
@@ -90,15 +76,13 @@ class Page extends StatelessWidget {
                   ],
                 ),
               ),
-
-
               Container(
                 alignment: Alignment.bottomCenter,
                 height: 100.0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('Amit Sharma', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28.0),
+                    Text(noteList2.title.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28.0),
                     ),
                   ],
                 ),
@@ -112,44 +96,12 @@ class Page extends StatelessWidget {
                   children: <Widget>[
                     Row(children: <Widget>[
                       SizedBox(width: 130.0,),
-                      Text('+91 8435492115',style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold
-                      ),)
-                    ],),
-                    SizedBox(height: 10.0,),
-
-
-
-                    //SizedBox(height: 10.0,),
-                    /* Row(children: <Widget>[
-                      Icon(Icons.location_on),
-                      SizedBox(width: 5.0,),
-                      Text('From',style: TextStyle(
-                          fontSize: 18.0
-                      ),),
-                      SizedBox(width: 5.0,),
-                      Text('Lahore',style: TextStyle(
+                      Text(this.noteList2.description,style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold
                       ),)
                     ],),
 
-
-
-                    SizedBox(height: 10.0,),
-                    Row(children: <Widget>[
-                      Icon(Icons.list),
-                      SizedBox(width: 5.0,),
-                      Text('Followed by',style: TextStyle(
-                          fontSize: 18.0
-                      ),),
-                      SizedBox(width: 5.0,),
-                      Text('100K people',style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold
-                      ),)
-                    ],),*/
                     SizedBox(height: 40.0,),
                     Container(
                       height: 20.0,
@@ -220,131 +172,6 @@ class Page extends StatelessWidget {
         ],
       ),
     );}
-    ListView getNoteListView() {
-
-      TextStyle titleStyle = Theme.of(BuildContext).textTheme.subhead;
-
-      return ListView.builder(
-        itemCount: count,
-        itemBuilder: (BuildContext context, int position) {
-          return Card(
-            color: Colors.white,
-            elevation: 2.0,
-            child: ListTile(
-
-
-              title: Text(this.noteList[position].title, style: titleStyle,),
-
-              subtitle: Text(this.noteList[position].description),
-
-              trailing: GestureDetector(
-
-              ),
-
-
-              onTap: () {
-                debugPrint("ListTile Tapped");
-                // Navigator.of(context).pushNamed('/details');
-                 navigateToDetail(this.noteList[position],'Edit Room');
-                //Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Room One")));
-              },
-
-            ),
-          );
-        },
-      );
-    }
-    /* return new Scaffold(
-        appBar: new AppBar(title: new Text(title), backgroundColor: Colors.redAccent,),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              height: 200.0,
-
-                color: Colors.redAccent,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(160.0, 0.0, 160.0, 0.0) ,
-                child: LogoImage(),
-
-              ),
-              ),
-
-
-            /*Container(
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 190.0, 0.0, 0.0),
-                    child: Text('Auto',
-                        style: TextStyle(
-                            fontSize: 60.0, fontWeight: FontWeight.bold)),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(16.0, 250.0, 0.0, 0.0),
-                    child: Text('Meter',
-                        style: TextStyle(
-                            fontSize: 60.0, fontWeight: FontWeight.bold)),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(175.0, 250.0, 0.0, 0.0),
-                    child: Text('.',
-                        style: TextStyle(
-                            fontSize: 60.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue)),
-                  )
-                ],
-              ),
-            ),*/
-            Container(
-
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: 5.0),
-
-                    Container(
-
-                      child: Text('Create an Account',
-                          style: TextStyle(fontFamily: 'RobotoSlab',
-                              fontSize: 20.0, color: Color(0xffe76577))),
-
-                    ),
-                    SizedBox(height: 300.0),
-                    Container(
-                      padding: EdgeInsets.only(top: 00.0, left: 30.0, right: 30.0),
-                      height: 40.0,
-                      child: Material(
-                        borderRadius: BorderRadius.circular(20.0),
-                        shadowColor: Colors.blueAccent,
-                        color: Colors.blue,
-                        elevation: 7.0,
-                        child: InkWell(
-                          onTap: ()
-                          {Navigator.of(context).pushNamed('/home_page');
-                          },
-                          child: Center(
-                            child: Text(
-                              'View Records',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                //fontFamily: 'Montserrat'
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                  ],
-                )
-            ),
-
-          ],
-      )
-    );*/
   }
 
 void _popupDialog(BuildContext context) {
@@ -402,28 +229,3 @@ class LogoImage extends StatelessWidget {
   }
 }
 
-void updateListView() {
-
-  var databaseHelper;
-  final Future<Database> dbFuture = databaseHelper.initializeDatabase();
-  dbFuture.then((database) {
-
-    Future<List<Note>> noteListFuture = databaseHelper.getNoteList();
-    noteListFuture.then((noteList) {
-//      setState(() {
-//        Element.this.noteList = noteList;
-//        this.count = noteList.length;
-      });
-    });
-  }
-
-
-void navigateToDetail(Note note, String title) async {
-  bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
-    return NoteDetail(note, title);
-  }));
-
-  if (result == true) {
-    updateListView();
-  }
-}
